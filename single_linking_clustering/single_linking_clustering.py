@@ -1,7 +1,7 @@
 """
 single_linking_clustering.py
 
-auther : Yoshitaka Nagai
+author : Yoshitaka Nagai
 """
 
 

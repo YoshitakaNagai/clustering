@@ -1,7 +1,7 @@
 """
 single_linking_clustering_with_threshold.py
 
-auther : Yoshitaka Nagai
+author : Yoshitaka Nagai
 """
 
 import numpy as np 
