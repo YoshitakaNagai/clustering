@@ -1,9 +1,8 @@
 """
-single_linking_clustering.py
+single_linking_clustering_with_threshold.py
 
 auther : Yoshitaka Nagai
 """
-
 
 import numpy as np 
 import matplotlib.pyplot as plt
@@ -39,6 +38,11 @@ except Exception as error:
 finally:
     file.close()
 
+
+#input distance threshold
+print("Input threshold distance : ")
+threshold = float(input())
+#print(threshold)
 
 dist_idx = 0
 dist_rank_idx = 1
@@ -99,7 +103,7 @@ def main():
     ic = 0
     jc = 0
     roop = 0
-    clustered_chr_list = np.empty((0,1), int)
+    clustered_list = np.empty((0,1), str)
 
     #clustering
     print("Let clustering movie start!")
@@ -111,37 +115,47 @@ def main():
                     ic = i
                     jc = j
         
-        exist_cluster_flag = False
-        for l in range(len(clustered_chr_list)):
-            if clustered_chr_list[l] == Input.Point[ic] or clustered_chr_list[l] == Input.Point[jc]:
-                Input.Point[ic] = clustered_chr_list[l]
-                Input.Point[jc] = clustered_chr_list[l]
-                exist_cluster_flag = True
-                #print("exist")
-                break
+        if np.linalg.norm(Input.Coordinate[ic] - Input.Coordinate[jc]) < threshold:
+            exist_cluster_flag = False
+            for l in range(len(clustered_list)):
+                if clustered_list[l] == Input.Point[ic] or clustered_list[l] == Input.Point[jc]:
+                    Input.Point[ic] = clustered_list[l]
+                    Input.Point[jc] = clustered_list[l]
+                    exist_cluster_flag = True
+                    print("exist")
+                    break
 
-        if roop > 0 and exist_cluster_flag == False: 
-            #print("new")
-            clustered_chr_list = np.append(clustered_chr_list, Input.Point[ic])
-            Input.Point[jc] = Input.Point[ic]
+            if roop > 0 and exist_cluster_flag == False: 
+                print("new")
+                clustered_list = np.append(clustered_list, Input.Point[ic])
+                Input.Point[jc] = Input.Point[ic]
 
-       
-        plt.clf()
-         
-        for i in range(Input.size):
-            if Input.Point[i] == "A":
-                plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="red")
-            elif Input.Point[i] == "B":
-                plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="orange")
-            elif Input.Point[i] == "C":
-                plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="green")
-            elif Input.Point[i] == "D":
-                plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="blue")
-            else :
-                plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="black")
-        
-        #plt.show()
-        plt.pause(1.0)
+
+            plt.clf()
+             
+            for i in range(Input.size):
+                if Input.Point[i] == "A":
+                    plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="red")
+                elif Input.Point[i] == "B":
+                    plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="blue")
+                elif Input.Point[i] == "C":
+                    plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="green")
+                elif Input.Point[i] == "D":
+                    plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="orange")
+                else :
+                    plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="black")
+            
+            plt.title("line")
+            plt.xlabel("x1")
+            plt.ylabel("x2")
+            plt.xlim(-0.1, )
+            plt.ylim(-0.1, )
+            
+
+            #plt.show()
+            plt.pause(0.5)
+
+    plt.pause(3.0)
     
     print("The end.")
 
