@@ -145,9 +145,9 @@ def main():
                 else :
                     plt_dataset = plt.scatter(Input.Coordinate[i,0], Input.Coordinate[i,1], c="black")
             
-            plt.title("line")
-            plt.xlabel("x1")
-            plt.ylabel("x2")
+            plt.title("single linking clustering with threshold")
+            plt.xlabel("x")
+            plt.ylabel("y")
             plt.xlim(-0.1, )
             plt.ylim(-0.1, )
             
